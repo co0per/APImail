@@ -11,6 +11,7 @@ import java.util.ArrayList;
 @Service
 public class UsuarioService {
 
+    @Autowired
     UsuarioDAO usuarioDao;
 
     @Autowired
@@ -18,13 +19,9 @@ public class UsuarioService {
         this.usuarioDao = dao;
     }
 
-    @Autowired
     public ArrayList<Usuario> todosUsuariosService(){
         return usuarioDao.traerTodosUsers();
     }
 
-    /*
-    public Usuario login(String nombreUsuario, String password) {
-        return usuarioDao.get(nombreUsuario,password);
-    }*/
+    public void agregarUsuarioService(Usuario user) { usuarioDao.agregarUser(user); }
 }

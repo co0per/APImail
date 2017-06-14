@@ -1,7 +1,8 @@
 package tp.DAO;
 
+import org.springframework.stereotype.Repository;
+import org.springframework.beans.factory.annotation.Autowired;
 import tp.Model.Usuario;
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -9,30 +10,23 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import tp.util.SessionData;
 
+@Repository
 public class UsuarioDAO
 {
     Connection conn;
 
-    static UsuarioDAO instance;
-
-    public static UsuarioDAO getInstance() {
-        if (instance == null) {
-            instance = new UsuarioDAO();
-        }
-        return instance;
-    }
-
+    //@Autowired
     public UsuarioDAO() {
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/APImail", "root", "1234");
-
+            this.conn = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/APImail", "root", "1234");
         } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
+
 
     public void agregarUser(Usuario user){
         try {
@@ -66,7 +60,7 @@ public class UsuarioDAO
                 Usuario mitch = new Usuario(resu.getString("nombre"), resu.getString("apellido"),
                         resu.getString("direccion"), resu.getString("telefono"), resu.getString("ciudad"),
                         resu.getString("pais"), resu.getString("provincia"), resu.getString("contra"),
-                        resu.getString("email"), resu.getString("2email"));
+                        resu.getString("email"), resu.getString("email2"));
                 lista_loca.add(mitch);
             }
 
@@ -77,4 +71,5 @@ public class UsuarioDAO
 
         return lista_loca;
     }
+
 }

@@ -18,9 +18,9 @@ public class UsuarioController
     @Autowired
     UsuarioService usuarioService;
 
-    /*ArrayList<Usuario> usuarios = new ArrayList<Usuario>();
+    //ArrayList<Usuario> usuarios = new ArrayList<Usuario>();
 
-    public UsuarioController(){
+    /*public UsuarioController(){
         Usuario user = new Usuario("Lisandro", "Cooper", "Arana y Goiri 3120", "02234850887", "Mar del Plata",
                 "Argentina", "Buenos Aires", "sec765", "coopermegadeth@gmail.com", "lisandrocooper1995@gmail.com");
         usuarios.add(user);
@@ -36,7 +36,7 @@ public class UsuarioController
     public void crearUsuario(@RequestBody UsuarioRequest request) {
         Usuario user = new Usuario(request.getNombre(), request.getApellido(), request.getDireccion(), request.getTelefono(), request.getCiudad(),
                 request.getPais(), request.getProvincia(), request.getContra(), request.getEmail(), request.getEmail2());
-
+        usuarioService.agregarUsuarioService(user);
     }
 
 }
