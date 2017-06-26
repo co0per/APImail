@@ -5,6 +5,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 public class UsuarioRequest {
 
+    public int setID() { return id; }
+    public void getID(int id) { this.id = id; }
     public String getNombre() { return nombre; }
     public void setNombre(String nombre) { this.nombre = nombre; }
     public String getApellido() { return apellido; }
@@ -26,6 +28,8 @@ public class UsuarioRequest {
     public String getEmail2() { return email2; }
     public void setEmail2(String email2) { this.email2 = email2; }
 
+    @JsonProperty("id")
+    int id;
     @JsonProperty("nombre")
     String nombre;
     @JsonProperty("apellido")

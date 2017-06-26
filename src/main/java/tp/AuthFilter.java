@@ -87,7 +87,5 @@ public class AuthFilter extends OncePerRequestFilter {
             }
             return Collections.enumeration(values);
         }
-
     }
-
 }

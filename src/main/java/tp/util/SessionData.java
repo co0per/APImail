@@ -6,6 +6,7 @@ import org.apache.log4j.Logger;
 import org.apache.log4j.Priority;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.web.ServerProperties;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
@@ -21,7 +22,6 @@ public class SessionData {
 
     @Value("${session.expiration}")
     int expirationTime;
-
 
     public SessionData() {
         this.sessionData = new HashMap<String, AuthenticationData>();
@@ -50,7 +50,7 @@ public class SessionData {
         }
     }
 
-    @Scheduled(fixedRate = 5000)
+    @Scheduled(fixedRate = 50000)
     public void checkSessions() {
         System.out.println("Checking sessions");
         Set<String> sessionsId = this.sessionData.keySet();

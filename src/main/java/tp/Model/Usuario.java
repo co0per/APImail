@@ -1,7 +1,7 @@
 package tp.Model;
 
 public class Usuario {
-
+    int id;
     String nombre;
     String apellido;
     String direccion;
@@ -12,6 +12,10 @@ public class Usuario {
     String contra;
     String email;
     String email2;
+
+    public Usuario(){
+        email = "";
+    }
 
     public Usuario(String n, String a, String d, String t, String c, String pa, String pro, String cont, String e, String e2){
         nombre = n;
@@ -26,6 +30,8 @@ public class Usuario {
         email2 = e2;
     }
 
+    public void setID(int id) { this.id = id; }
+    public int getID() { return id; }
     public String getNombre() { return nombre; }
     public void setNombre(String nombre) { this.nombre = nombre; }
     public String getApellido() { return apellido; }

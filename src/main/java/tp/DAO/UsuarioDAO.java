@@ -11,6 +11,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import tp.util.SessionData;
+import tp.Wrapper.UsuarioWrapper;
 
 @Repository
 public class UsuarioDAO
@@ -21,7 +22,8 @@ public class UsuarioDAO
     public UsuarioDAO() {
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            this.conn = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/APImail", "root", "1234");
+            this.conn = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/APImail?serverTimezone=UTC",
+                    "root", "1234");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -48,19 +50,20 @@ public class UsuarioDAO
         }
     }
 
-    public ArrayList<Usuario> traerTodosUsers()
+    public ArrayList<UsuarioWrapper> traerTodosUsers()
     {
-        ArrayList<Usuario> lista_loca = new ArrayList<Usuario>();
+        ArrayList<UsuarioWrapper> lista_loca = new ArrayList<UsuarioWrapper>();
         try {
             Statement stat = conn.createStatement();
             ResultSet resu = stat.executeQuery("SELECT * FROM usuarios");
 
             while(resu.next())
             {
-                Usuario mitch = new Usuario(resu.getString("nombre"), resu.getString("apellido"),
+                UsuarioWrapper mitch = new UsuarioWrapper(resu.getString("nombre"), resu.getString("apellido"),
                         resu.getString("direccion"), resu.getString("telefono"), resu.getString("ciudad"),
-                        resu.getString("pais"), resu.getString("provincia"), resu.getString("contra"),
-                        resu.getString("email"), resu.getString("email2"));
+                        resu.getString("pais"), resu.getString("provincia"), resu.getString("email"),
+                        resu.getString("email2"));
+
                 lista_loca.add(mitch);
             }
 
@@ -72,4 +75,63 @@ public class UsuarioDAO
         return lista_loca;
     }
 
+    public Usuario getUser4Login(String nombre, String pass) throws SQLException{
+        Usuario user = new Usuario();
+        try{
+            PreparedStatement stat = conn.prepareStatement("SELECT * FROM usuarios WHERE nombre = ? AND contra = ?");
+            stat.setString(1,nombre);
+            stat.setString(2,pass);
+            ResultSet resu = stat.executeQuery();
+            while(resu.next()){
+                user.setID(resu.getInt("id"));
+                user.setNombre(resu.getString("nombre"));
+                user.setApellido(resu.getString("apellido"));
+                user.setDireccion(resu.getString("direccion"));
+                user.setTelefono(resu.getString("telefono"));
+                user.setCiudad(resu.getString("ciudad"));
+                user.setPais(resu.getString("pais"));
+                user.setProvincia(resu.getString("provincia"));
+                user.setContra(resu.getString("contra"));
+                user.setEmail(resu.getString("email"));
+                user.setEmail2(resu.getString("email2"));
+                System.out.println(user);
+            }
+        }catch (SQLException e){
+            throw e;
+        }
+        System.out.println("mierda seca ");
+        return user;
+    }
+
+    public void borrarUser(int id){
+        try {
+            PreparedStatement stat = conn.prepareStatement("DELETE FROM usuarios WHERE id = ?");
+            stat.setInt(1,id);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public UsuarioWrapper getByName(String nombre) {
+        UsuarioWrapper user = new UsuarioWrapper();
+        try {
+            PreparedStatement stat = conn.prepareStatement("SELECT * FROM usuarios WHERE nombre = ?");
+            stat.setString(1,nombre);
+            ResultSet resu = stat.executeQuery();
+            while(resu.next()){
+                user.setNombre(resu.getString("nombre"));
+                user.setApellido(resu.getString("apellido"));
+                user.setDireccion(resu.getString("direccion"));
+                user.setTelefono(resu.getString("telefono"));
+                user.setCiudad(resu.getString("ciudad"));
+                user.setPais(resu.getString("pais"));
+                user.setProvincia(resu.getString("provincia"));
+                user.setEmail(resu.getString("email"));
+                user.setEmail2(resu.getString("email2"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return user;
+    }
 }
