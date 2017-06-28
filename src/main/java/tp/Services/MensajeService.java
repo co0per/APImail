@@ -22,4 +22,10 @@ public class MensajeService {
     public void enviarMensajeService(Mensaje mail){ mensajeDao.enviarMail(mail); }
 
     public ArrayList<Mensaje> getMensajesService(String mail) { return mensajeDao.traerEnviados(mail); }
+
+    public ArrayList<Mensaje> getMensajesBorradosService(String mail) { return mensajeDao.traerBorrados(mail); }
+
+    public void eliminarMensajeService(int id) { mensajeDao.borrar(id); }
+
+    public ArrayList<Mensaje> getInbox(String mail) { return mensajeDao.traerInbox(mail); }
 }

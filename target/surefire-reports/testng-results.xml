@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testng-results skipped="0" failed="1" ignored="0" total="18" passed="17">
+  <reporter-output>
+  </reporter-output>
+  <suite name="Surefire suite" duration-ms="26226" started-at="2017-06-28T02:31:32Z" finished-at="2017-06-28T02:31:59Z">
+    <groups>
+    </groups>
+    <test name="Surefire test" duration-ms="26226" started-at="2017-06-28T02:31:32Z" finished-at="2017-06-28T02:31:59Z">
+      <class name="AppTest">
+        <test-method status="PASS" signature="testApp()" name="testApp" duration-ms="17" started-at="2017-06-27T23:31:59Z" finished-at="2017-06-27T23:31:59Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testApp -->
+      </class> <!-- AppTest -->
+      <class name="MensajeTest">
+        <test-method status="PASS" signature="testRecipiente()" name="testRecipiente" duration-ms="8" started-at="2017-06-27T23:31:59Z" finished-at="2017-06-27T23:31:59Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testRecipiente -->
+        <test-method status="PASS" signature="testID()" name="testID" duration-ms="7" started-at="2017-06-27T23:31:59Z" finished-at="2017-06-27T23:31:59Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testID -->
+        <test-method status="PASS" signature="testMensaje()" name="testMensaje" duration-ms="3" started-at="2017-06-27T23:31:59Z" finished-at="2017-06-27T23:31:59Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testMensaje -->
+        <test-method status="PASS" signature="testRemitente()" name="testRemitente" duration-ms="4" started-at="2017-06-27T23:31:59Z" finished-at="2017-06-27T23:31:59Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testRemitente -->
+        <test-method status="PASS" signature="testBorrado()" name="testBorrado" duration-ms="3" started-at="2017-06-27T23:31:59Z" finished-at="2017-06-27T23:31:59Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testBorrado -->
+        <test-method status="PASS" signature="testAsunto()" name="testAsunto" duration-ms="4" started-at="2017-06-27T23:31:59Z" finished-at="2017-06-27T23:31:59Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testAsunto -->
+      </class> <!-- MensajeTest -->
+      <class name="MensajeControllerTest">
+        <test-method status="FAIL" signature="testGetInboxOk() throws java.lang.Exception" name="testGetInboxOk" duration-ms="24987" started-at="2017-06-27T23:31:33Z" finished-at="2017-06-27T23:31:58Z">
+          <exception class="java.lang.AssertionError">
+            <message>
+              <![CDATA[Status expected:<200> but was:<204>]]>
+            </message>
+            <full-stacktrace>
+              <![CDATA[java.lang.AssertionError: Status expected:<200> but was:<204>
+	at org.springframework.test.util.AssertionErrors.fail(AssertionErrors.java:54)
+	at org.springframework.test.util.AssertionErrors.assertEquals(AssertionErrors.java:81)
+	at org.springframework.test.web.servlet.result.StatusResultMatchers$10.match(StatusResultMatchers.java:664)
+	at org.springframework.test.web.servlet.MockMvc$1.andExpect(MockMvc.java:171)
+	at MensajeControllerTest.testGetInboxOk(MensajeControllerTest.java:76)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:50)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:47)
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:26)
+	at org.springframework.test.context.junit4.statements.RunBeforeTestMethodCallbacks.evaluate(RunBeforeTestMethodCallbacks.java:75)
+	at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:27)
+	at org.springframework.test.context.junit4.statements.RunAfterTestMethodCallbacks.evaluate(RunAfterTestMethodCallbacks.java:86)
+	at org.springframework.test.context.junit4.statements.SpringRepeat.evaluate(SpringRepeat.java:84)
+	at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:325)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.runChild(SpringJUnit4ClassRunner.java:252)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.runChild(SpringJUnit4ClassRunner.java:94)
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:290)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:71)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:288)
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:58)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:268)
+	at org.springframework.test.context.junit4.statements.RunBeforeTestClassCallbacks.evaluate(RunBeforeTestClassCallbacks.java:61)
+	at org.springframework.test.context.junit4.statements.RunAfterTestClassCallbacks.evaluate(RunAfterTestClassCallbacks.java:70)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:363)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.run(SpringJUnit4ClassRunner.java:191)
+	at org.junit.runner.JUnitCore.run(JUnitCore.java:137)
+	at org.junit.runner.JUnitCore.run(JUnitCore.java:115)
+	at org.testng.junit.JUnit4TestRunner.start(JUnit4TestRunner.java:82)
+	at org.testng.junit.JUnit4TestRunner.run(JUnit4TestRunner.java:70)
+	at org.testng.TestRunner$1.run(TestRunner.java:667)
+	at org.testng.TestRunner.runJUnitWorkers(TestRunner.java:950)
+	at org.testng.TestRunner.privateRunJUnit(TestRunner.java:698)
+	at org.testng.TestRunner.run(TestRunner.java:599)
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:380)
+	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:375)
+	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:340)
+	at org.testng.SuiteRunner.run(SuiteRunner.java:289)
+	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
+	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:86)
+	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1301)
+	at org.testng.TestNG.runSuitesLocally(TestNG.java:1226)
+	at org.testng.TestNG.runSuites(TestNG.java:1144)
+	at org.testng.TestNG.run(TestNG.java:1115)
+	at org.apache.maven.surefire.testng.TestNGExecutor.run(TestNGExecutor.java:115)
+	at org.apache.maven.surefire.testng.TestNGDirectoryTestSuite.executeMulti(TestNGDirectoryTestSuite.java:212)
+	at org.apache.maven.surefire.testng.TestNGDirectoryTestSuite.execute(TestNGDirectoryTestSuite.java:108)
+	at org.apache.maven.surefire.testng.TestNGProvider.invoke(TestNGProvider.java:111)
+	at org.apache.maven.surefire.booter.ForkedBooter.invokeProviderInSameClassLoader(ForkedBooter.java:203)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:155)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:103)
+]]>
+            </full-stacktrace>
+          </exception> <!-- java.lang.AssertionError -->
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testGetInboxOk -->
+      </class> <!-- MensajeControllerTest -->
+      <class name="UsuarioTest">
+        <test-method status="PASS" signature="testPais()" name="testPais" duration-ms="14" started-at="2017-06-27T23:31:59Z" finished-at="2017-06-27T23:31:59Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testPais -->
+        <test-method status="PASS" signature="testEmail()" name="testEmail" duration-ms="13" started-at="2017-06-27T23:31:59Z" finished-at="2017-06-27T23:31:59Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testEmail -->
+        <test-method status="PASS" signature="testPass()" name="testPass" duration-ms="14" started-at="2017-06-27T23:31:59Z" finished-at="2017-06-27T23:31:59Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testPass -->
+        <test-method status="PASS" signature="testDireccion()" name="testDireccion" duration-ms="18" started-at="2017-06-27T23:31:59Z" finished-at="2017-06-27T23:31:59Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testDireccion -->
+        <test-method status="PASS" signature="testProvincia()" name="testProvincia" duration-ms="19" started-at="2017-06-27T23:31:59Z" finished-at="2017-06-27T23:31:59Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testProvincia -->
+        <test-method status="PASS" signature="testTelefono()" name="testTelefono" duration-ms="15" started-at="2017-06-27T23:31:59Z" finished-at="2017-06-27T23:31:59Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testTelefono -->
+        <test-method status="PASS" signature="testCiudad()" name="testCiudad" duration-ms="23" started-at="2017-06-27T23:31:59Z" finished-at="2017-06-27T23:31:59Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testCiudad -->
+        <test-method status="PASS" signature="testApellido()" name="testApellido" duration-ms="25" started-at="2017-06-27T23:31:59Z" finished-at="2017-06-27T23:31:59Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testApellido -->
+        <test-method status="PASS" signature="testEmail2()" name="testEmail2" duration-ms="25" started-at="2017-06-27T23:31:59Z" finished-at="2017-06-27T23:31:59Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testEmail2 -->
+        <test-method status="PASS" signature="testNombre()" name="testNombre" duration-ms="28" started-at="2017-06-27T23:31:59Z" finished-at="2017-06-27T23:31:59Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testNombre -->
+      </class> <!-- UsuarioTest -->
+    </test> <!-- Surefire test -->
+  </suite> <!-- Surefire suite -->
+</testng-results>

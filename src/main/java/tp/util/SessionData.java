@@ -29,6 +29,7 @@ public class SessionData {
 
     public String addSession(Usuario usuario) {
         String sessionId = UUID.randomUUID().toString();
+        System.out.println(sessionId);
         AuthenticationData aData = new AuthenticationData();
         aData.setUsuario(usuario);
         aData.setLastAction(new DateTime());

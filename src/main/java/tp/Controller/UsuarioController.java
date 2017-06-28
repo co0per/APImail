@@ -33,19 +33,18 @@ public class UsuarioController
     @Autowired
     SessionData sessionData;
 
-    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    @RequestMapping(value = "login", method = RequestMethod.POST)
     public
     @ResponseBody
-    ResponseEntity<LoginWrapper> getById(@RequestParam(value = "nombre", required = true) String nombre,
+    ResponseEntity<LoginWrapper> login(@RequestParam(value = "nombre", required = true) String nombre,
                                          @RequestParam(value = "contra", required = true) String password) {
         Usuario usuario = new Usuario();
-        System.out.println("nombre " + nombre);
         try {
             usuario = usuarioService.login(nombre, password);
         } catch (Exception e) {
             return new ResponseEntity<LoginWrapper>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
-        if (usuario.getEmail().equals("")) {
+        if (usuario.getEmail() == null) {
             return new ResponseEntity<LoginWrapper>(HttpStatus.FORBIDDEN);
         }
         if (null != usuario) {
@@ -58,7 +57,7 @@ public class UsuarioController
     @RequestMapping("/logout")
     public
     @ResponseBody
-    ResponseEntity getById(@RequestHeader("sessionid") String sessionID) {
+    ResponseEntity logout(@RequestHeader("sessionid") String sessionID) {
         sessionData.removeSession(sessionID);
         return new ResponseEntity(HttpStatus.ACCEPTED);
     }

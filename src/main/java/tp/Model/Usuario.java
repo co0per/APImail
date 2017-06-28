@@ -14,7 +14,6 @@ public class Usuario {
     String email2;
 
     public Usuario(){
-        email = "";
     }
 
     public Usuario(String n, String a, String d, String t, String c, String pa, String pro, String cont, String e, String e2){

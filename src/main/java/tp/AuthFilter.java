@@ -24,12 +24,12 @@ public class AuthFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request,
                                     HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
-
         String sessionId = request.getHeader("sessionid");
         AuthenticationData data = sessionData.getSession(sessionId);
+
         if (null != data) {
             HeaderMapRequestWrapper requestWrapper = new HeaderMapRequestWrapper(request);
-            requestWrapper.addHeader("nombre", data.getUsuario().getNombre());
+            requestWrapper.addHeader("usuario", data.getUsuario().getNombre());
             filterChain.doFilter(requestWrapper, response);
         } else {
             response.setStatus(HttpStatus.UNAUTHORIZED.value());

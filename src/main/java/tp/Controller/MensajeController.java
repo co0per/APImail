@@ -1,7 +1,5 @@
 package tp.Controller;
 
-import java.sql.Time;
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.MediaType;
@@ -16,8 +14,8 @@ import org.springframework.http.HttpStatus;
 import tp.Request.MensajeRequest;
 import tp.Wrapper.MensajeWrapper;
 import tp.Services.MensajeService;
-import tp.Services.UsuarioService;
 import tp.Model.Mensaje;
+import tp.Converter.MensajeConverter;
 
 @RestController
 public class MensajeController
@@ -25,7 +23,10 @@ public class MensajeController
     @Autowired
     MensajeService mensajeService;
 
-    @RequestMapping(value = "/api/enviar", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    @Autowired
+    MensajeConverter convertidor;
+
+    @RequestMapping(value = "api/enviar", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody
     ResponseEntity enviarMensaje (@RequestBody Mensaje mensaje){
         try{
@@ -35,18 +36,65 @@ public class MensajeController
             return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-/*
-    @RequestMapping(value = "api/mensaje", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+
+    @RequestMapping(value = "api/mensajes", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody
     ResponseEntity<ArrayList<MensajeWrapper>> getMensajesEnviados(@RequestParam(value = "remitente") String remi){
         try{
-            ArrayList<Mensaje> lista_inbox = mensajeService.getMensajesService(remi);
-            if (lista_inbox.isEmpty()){
+            ArrayList<Mensaje> lista_enviados = mensajeService.getMensajesService(remi);
+            if (lista_enviados.isEmpty()){
                 return new ResponseEntity<ArrayList<MensajeWrapper>>(HttpStatus.NO_CONTENT);
             }
-            return new ResponseEntity<ArrayList<MensajeWrapper>>(this.convertList(listMensajes), HttpStatus.OK);
+            return new ResponseEntity<ArrayList<MensajeWrapper>>(this.convertirLista(lista_enviados), HttpStatus.OK);
         }catch (Exception e){
             return new ResponseEntity<ArrayList<MensajeWrapper>>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
-    }*/
+    }
+
+    @RequestMapping(value = "api/mensaje/inbox", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public @ResponseBody
+    ResponseEntity<ArrayList<MensajeWrapper>> getInbox (@RequestParam("recipiente") String reci){
+        try{
+            ArrayList<Mensaje> mensajes = mensajeService.getInbox(reci);
+            if (mensajes.isEmpty()){
+                return new ResponseEntity<ArrayList<MensajeWrapper>>(HttpStatus.NO_CONTENT);
+            }
+            return new ResponseEntity<ArrayList<MensajeWrapper>>(this.convertirLista(mensajes), HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity<ArrayList<MensajeWrapper>>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @RequestMapping(value = "/api/mensajes/eliminados", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public @ResponseBody
+    ResponseEntity<ArrayList<MensajeWrapper>> getMensajesEliminados (@RequestParam(value = "recipiente") String reci_mail){
+        try{
+            ArrayList<Mensaje> mensajes = mensajeService.getMensajesBorradosService(reci_mail);
+            if (mensajes.isEmpty()){
+                return new ResponseEntity<ArrayList<MensajeWrapper>>(HttpStatus.NO_CONTENT);
+            }
+            return  new ResponseEntity<ArrayList<MensajeWrapper>>(this.convertirLista(mensajes) ,HttpStatus.OK);
+        }catch (Exception e){
+            return  new ResponseEntity<ArrayList<MensajeWrapper>>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @RequestMapping(value = "/api/mensaje", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public @ResponseBody
+    ResponseEntity eliminarMensaje (@RequestParam("id_mensaje") int id){
+        try{
+            mensajeService.eliminarMensajeService(id);
+            return new ResponseEntity(HttpStatus.ACCEPTED);
+        }catch (Exception e){
+            return  new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    private ArrayList<MensajeWrapper> convertirLista(ArrayList<Mensaje> listMensajes) {
+        ArrayList<MensajeWrapper> mensajeWrapperList = new ArrayList<MensajeWrapper>();
+        for(Mensaje mensaje : listMensajes){
+            mensajeWrapperList.add(convertidor.convert(mensaje));
+        }
+        return mensajeWrapperList;
+    }
 }
