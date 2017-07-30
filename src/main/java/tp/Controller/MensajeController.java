@@ -11,8 +11,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import tp.Request.MensajeRequest;
+//import tp.Request.MensajeRequest;
 import tp.Wrapper.MensajeWrapper;
+import tp.Wrapper.MensajeWrapperLeer;
 import tp.Services.MensajeService;
 import tp.Model.Mensaje;
 import tp.Converter.MensajeConverter;
@@ -96,5 +97,27 @@ public class MensajeController
             mensajeWrapperList.add(convertidor.convert(mensaje));
         }
         return mensajeWrapperList;
+    }
+
+    private ArrayList<MensajeWrapperLeer> convertirListaLeer(ArrayList<Mensaje> listMensajes) {
+        ArrayList<MensajeWrapperLeer> mensajeWrapperList = new ArrayList<MensajeWrapperLeer>();
+        for(Mensaje mensaje : listMensajes){
+            mensajeWrapperList.add(convertidor.convertLeer(mensaje));
+        }
+        return mensajeWrapperList;
+    }
+
+    @RequestMapping(value = "api/mensaje/leer", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public @ResponseBody
+    ResponseEntity<ArrayList<MensajeWrapperLeer>> Leer (@RequestParam("id_mensaje") int id_mensaje){
+        try{
+            ArrayList<Mensaje> mensaje = mensajeService.leerMensaje(id_mensaje);
+            if (mensaje.isEmpty()){
+                return new ResponseEntity<ArrayList<MensajeWrapperLeer>>(HttpStatus.NO_CONTENT);
+            }
+            return new ResponseEntity<ArrayList<MensajeWrapperLeer>>(this.convertirListaLeer(mensaje), HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity<ArrayList<MensajeWrapperLeer>>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 }

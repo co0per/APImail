@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.sql.Timestamp;
 import java.text.ParseException;
+import java.util.ArrayList;
 
 public class MensajeTest extends TestCase {
 
@@ -18,7 +19,10 @@ public class MensajeTest extends TestCase {
 
     @Before
     public void setUp() {
-        mensaje = new Mensaje("lisandro@gmail.com", "cooper@gmail.com", "asunto", "texto largo aqui");
+        ArrayList<String> lista = new ArrayList<String>();
+        lista.add("charles_bronson@gmail.com");
+        lista.add("hola@gmail.com");
+        mensaje = new Mensaje("lisandro@gmail.com", lista, "asunto", "texto largo aqui");
         mensaje.setId(1);
     }
 
@@ -31,11 +35,11 @@ public class MensajeTest extends TestCase {
     public void testRemitente() {
         assertEquals("Checking getremitente()", mensaje.getRemitente(), "lisandro@gmail.com");
     }
-
+/*
     @Test
     public void testRecipiente() {
-        assertEquals("Checking getrecipiente()", mensaje.getRecipiente(), "cooper@gmail.com");
-    }
+        assertEquals("Checking getrecipiente()", mensaje.getRecipientes(), );
+    }*/
 
     @Test
     public void testAsunto() {
@@ -50,5 +54,10 @@ public class MensajeTest extends TestCase {
     @Test
     public void testBorrado() {
         assertFalse("Checking getBorrado()", mensaje.getBorrado());
+    }
+
+    @Test
+    public void testLeido() {
+        assertFalse("Checking getLeido()", mensaje.getLeido());
     }
 }

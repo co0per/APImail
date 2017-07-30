@@ -5,8 +5,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 public class UsuarioRequest {
 
-    public int setID() { return id; }
-    public void getID(int id) { this.id = id; }
+    /*public int setID() { return id; }
+    public void getID(int id) { this.id = id; }*/
     public String getNombre() { return nombre; }
     public void setNombre(String nombre) { this.nombre = nombre; }
     public String getApellido() { return apellido; }

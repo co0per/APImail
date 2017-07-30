@@ -17,5 +17,6 @@ tp/Converter/MensajeConverter.class
 tp/Wrapper/LoginWrapper.class
 tp/Controller/UsuarioController.class
 tp/Application.class
+tp/Wrapper/MensajeWrapperLeer.class
 tp/Wrapper/MensajeWrapper.class
 tp/AuthFilter.class

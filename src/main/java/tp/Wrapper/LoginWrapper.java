@@ -9,5 +9,5 @@ public class LoginWrapper {
     public LoginWrapper(String SessionID){ this.sessionID = SessionID; }
 
     public String getSessionID() { return sessionID; }
-    public void setSessionID(String sessionID) { this.sessionID = sessionID; }
+    //public void setSessionID(String sessionID) { this.sessionID = sessionID; }
 }

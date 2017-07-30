@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.sql.Timestamp;
 
-public class MensajeWrapper {
+public class MensajeWrapperLeer {
     @JsonProperty
     String remitente_mail;
     @JsonProperty
@@ -16,9 +16,11 @@ public class MensajeWrapper {
     @JsonProperty
     String asunto;
     @JsonProperty
-    Date fecha;
+    String mensaje;
     @JsonProperty
-    Boolean leido;
+    Date fecha;
+    /*@JsonProperty
+    Boolean leido;*/
     @JsonProperty
     Boolean borrado;
 
@@ -28,10 +30,12 @@ public class MensajeWrapper {
     public void setRecipiente(ArrayList<String> recipiente) { this.recipientes_mail = recipiente; }
     public String getAsunto() { return asunto; }
     public void setAsunto(String asunto) { this.asunto = asunto; }
+    public String getMensaje() { return mensaje; }
+    public void setMensaje(String mensaje) { this.mensaje = mensaje; }
     public Date getFecha() { return fecha; }
     public void setFecha(Timestamp fecha) { this.fecha = fecha; }
-    public void setLeido(Boolean leido) { this.leido = leido; }
-    public Boolean getLeido() { return leido; }
+   /* public void setLeido(Boolean leido) { this.leido = leido; }
+    public Boolean getLeido() { return leido; }*/
     public void setBorrado(Boolean borradin) { this.borrado = borradin; }
     public Boolean getBorrado() { return borrado; }
 }

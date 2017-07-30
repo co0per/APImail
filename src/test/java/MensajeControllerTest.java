@@ -43,6 +43,7 @@ public class MensajeControllerTest extends TestCase {
     private MockMvc mockMvc;
     private String sessionid;
     private Mensaje mensaje;
+    private Mensaje mensa;
     private Usuario usuario;
 
     @Before
@@ -52,11 +53,18 @@ public class MensajeControllerTest extends TestCase {
                 .build();
 
         usuario = new Usuario("Gordon", "Freeman", "somewhere", "1234", "Lago del Terror", "EEUU",
-                "Texas", "password", "lisandro@gmail.com", "gordo@gmail.com");
+                "Texas", "password", "coopermegadeth@gmail.com", "gordo@gmail.com");
         usuario.setID(1);
 
-        mensaje = new Mensaje("lisandro@gmail.com", "cooper@gmail.com", "asunto", "texto largo aqui");
+        ArrayList<String> lista = new ArrayList<String>();
+        lista.add("charles_bronson@gmail.com");
+        lista.add("hola@gmail.com");
+        mensaje = new Mensaje("coopermegadeth@gmail.com", lista, "asunto", "texto largo aqui");
         mensaje.setId(1);
+
+        mensa = new Mensaje("coopermegadeth@gmail.com", lista, "asunto", "texto largo aqui");
+        mensa.setId(2);
+        mensa.setBorrado(true);
 
         this.sessionid = this.sessionData.addSession(usuario);
     }
@@ -71,18 +79,18 @@ public class MensajeControllerTest extends TestCase {
         mockMvc.perform(
                 get("/api/mensaje/inbox")
                         .header("sessionid", this.sessionid)
-                        .param("recipiente", "7")
+                        .param("recipiente", "coopermegadeth@gmail.com")
         )
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8));
     }
 
-    /*@Test
+    @Test
     public void testGetInboxNoContent() throws Exception{
         mockMvc.perform(
                 get("/api/mensaje/inbox")
                         .header("sessionid",this.sessionid)
-                        .param("recipienter", "nadie@gmail.com")
+                        .param("recipiente", "nadie@gmail.com")
         )
                 .andExpect(status().isNoContent());
     }
@@ -92,26 +100,26 @@ public class MensajeControllerTest extends TestCase {
         mockMvc.perform(
                 get("/api/mensaje/inbox")
                         .header("sessionid", this.sessionid)
-                        .param("recipiente", "1")
+                        .param("recipientex", "1")
         )
                 .andExpect(status().isBadRequest());
     }
 
     @Test
-    public void testGetSendOk() throws Exception {
+    public void testGetMensajesEnviadosOk() throws Exception {
         mockMvc.perform(
-                get("/api/mensaje")
+                get("/api/mensajes")
                         .header("sessionid", this.sessionid)
-                        .param("recipiente", "lisandro@gmail.com")
+                        .param("remitente", "coopermegadeth@gmail.com")
         )
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8));
     }
 
     @Test
-    public void testGetSendNoContent() throws Exception{
+    public void testGetMensajesEnviadosNoContent() throws Exception{
         mockMvc.perform(
-                get("/api/mensaje")
+                get("/api/mensajes")
                         .header("sessionid", this.sessionid)
                         .param("remitente", "nadie@gmail.com")
         )
@@ -119,12 +127,132 @@ public class MensajeControllerTest extends TestCase {
     }
 
     @Test
-    public void testGetSendBadRequest() throws Exception {
+    public void testGetMensajesEnviadosBadRequest() throws Exception {
         mockMvc.perform(
-                get("/api/mensaje")
+                get("/api/mensajes")
                         .header("sessionid", this.sessionid)
-                        .param("remitente", "255")
+                        .param("remitentez", "255")
         )
                 .andExpect(status().isBadRequest());
-    }*/
+    }
+
+    @Test
+    public void testEnviarMensajeOk() throws Exception{
+        URL url  = Resources.getResource("mensaje.json");
+        String json = Resources.toString(url, Charsets.UTF_8);
+        mockMvc.perform(
+                post("/api/enviar")
+                        .header("sessionid", this.sessionid)
+                        .contentType(MediaType.APPLICATION_JSON_UTF8)
+                        .content(json)
+        )
+                .andExpect(status().isCreated());
+    }
+
+    @Test
+    public void testEnviarMensajeBadRequest() throws Exception {
+        mockMvc.perform(
+                post("/api/enviar")
+                        .header("sessionid", this.sessionid)
+
+        )
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    public void testBorrarMensajeOk() throws Exception {
+        mockMvc.perform((
+                        delete("/api/mensaje")
+                                .header("sessionid", this.sessionid)
+                                .param("id_mensaje", "1")
+                )
+        )
+                .andExpect(status().isAccepted());
+    }
+
+    @Test
+    public void testBorrarMensajeBadRequest() throws Exception {
+        mockMvc.perform((
+                        delete("/api/mensaje")
+                                .header("sessionid", this.sessionid)
+                                .param("id_mensaje", "whatever")
+                )
+        )
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    public void testGetEliminadosOk() throws Exception{
+        mockMvc.perform(
+                get("/api/mensajes/eliminados")
+                        .header("sessionid", this.sessionid)
+                        .param("recipiente", "charles_bronson@gmail.com")
+
+        )
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    public void testGetEliminadosNoContent() throws Exception{
+        mockMvc.perform(
+                get("/api/mensajes/eliminados")
+                        .header("sessionid", this.sessionid)
+                        .param("recipiente", "33")
+
+        )
+                .andExpect(status().isNoContent());
+    }
+
+    @Test
+    public void testGetEliminadosBadRequest() throws Exception{
+        mockMvc.perform(
+                get("/api/mensajes/eliminados")
+                        .header("sessionid", this.sessionid)
+                        .param("recipienteX", "33")
+
+        )
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    public void testLeerMensajeOk() throws Exception{
+        mockMvc.perform(
+                get("/api/mensaje/leer")
+                        .header("sessionid", this.sessionid)
+                        .param("id_mensaje", "93")
+        )
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8));
+    }
+
+    @Test
+    public void testLeerMensajeLeidoOk() throws Exception{
+        mockMvc.perform(
+                get("/api/mensaje/leer")
+                        .header("sessionid", this.sessionid)
+                        .param("id_mensaje", "65")
+        )
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8));
+    }
+
+    @Test
+    public void testLeerMensajeNoContent() throws Exception{
+        mockMvc.perform(
+                get("/api/mensaje/leer")
+                        .header("sessionid",this.sessionid)
+                        .param("id_mensaje", "1000")
+        )
+                .andExpect(status().isNoContent());
+    }
+
+    @Test
+    public void testLeerMensajeBadRequest() throws Exception{
+        mockMvc.perform(
+                get("/api/mensaje/leer")
+                        .header("sessionid", this.sessionid)
+                        .param("id_mensajeX", "1")
+        )
+                .andExpect(status().isBadRequest());
+    }
 }

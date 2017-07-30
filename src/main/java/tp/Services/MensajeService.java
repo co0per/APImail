@@ -28,4 +28,6 @@ public class MensajeService {
     public void eliminarMensajeService(int id) { mensajeDao.borrar(id); }
 
     public ArrayList<Mensaje> getInbox(String mail) { return mensajeDao.traerInbox(mail); }
+
+    public ArrayList<Mensaje> leerMensaje(int id) { return mensajeDao.leerMensaje(id); }
 }
