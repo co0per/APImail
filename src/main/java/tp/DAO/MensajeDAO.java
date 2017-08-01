@@ -78,7 +78,7 @@ public class MensajeDAO
     {
         ArrayList<Mensaje> lista_loca = new ArrayList<Mensaje>();
         try {
-            PreparedStatement stat = conn.prepareStatement("SELECT * FROM mensajes where remitente = ?");
+            PreparedStatement stat = conn.prepareStatement("SELECT * FROM mensajes where remitente = ? ORDER BY fecha DESC");
             stat.setString(1, mail);
             ResultSet resu = stat.executeQuery();
 
@@ -136,7 +136,7 @@ public class MensajeDAO
             ResultSet resu = stat.executeQuery();
 
             while(resu.next()) { //traigo los mensajes a partir de sus id's...
-                stat = conn.prepareStatement("SELECT * FROM mensajes WHERE id = ? and borrado = 1");
+                stat = conn.prepareStatement("SELECT * FROM mensajes WHERE id = ? and borrado = 1 ORDER BY fecha DESC");
                 stat.setInt(1, resu.getInt("id_mensaje"));
                 ResultSet resultado = stat.executeQuery();
 
@@ -228,7 +228,7 @@ public class MensajeDAO
             ResultSet resu = stat.executeQuery();
 
             while(resu.next()) { //traigo los mensajes a partir de sus id's...
-                stat = conn.prepareStatement("SELECT * FROM mensajes WHERE id = ? and borrado = 0");
+                stat = conn.prepareStatement("SELECT * FROM mensajes WHERE id = ? and borrado = 0 ORDER BY fecha DESC");
                 stat.setInt(1, resu.getInt("id_mensaje"));
                 ResultSet resultado = stat.executeQuery();
 
